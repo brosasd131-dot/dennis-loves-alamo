@@ -12,7 +12,20 @@
     height: 100vh;
     width: 100vw;
     position: relative;
-    cursor: pointer; /* shows you can click */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 2em;
+    user-select: none;
+  }
+  #click-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* so clicks go to body */
   }
   #alamo {
     position: absolute;
@@ -37,6 +50,7 @@
 </head>
 <body>
 
+<div id="click-text">CLICK HERE</div>
 <img src="Alamo.png" id="alamo" alt="Alamo">
 <audio id="scream" src="All alamos _jonmud _jon mud(MP3).mp3"></audio>
 
@@ -45,18 +59,22 @@ const alamo = document.getElementById('alamo');
 const screamAudio = document.getElementById('scream');
 
 function popAlamo() {
+  // Hide click text while PNG pops
+  document.getElementById('click-text').style.display = 'none';
+
   // Center the PNG
   alamo.style.left = (window.innerWidth/2 - alamo.offsetWidth/2) + 'px';
   alamo.classList.add('shake');
 
-  // Play your MP3
+  // Play MP3
   screamAudio.currentTime = 0;
   screamAudio.play();
 
-  // Hide after 0.8s
+  // Hide PNG after 0.8s and show click text again
   setTimeout(() => {
     alamo.classList.remove('shake');
     alamo.style.left = '-1000px';
+    document.getElementById('click-text').style.display = 'block';
   }, 800);
 }
 
