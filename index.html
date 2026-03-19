@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>DrChicken Messanger</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funny Pop-Up</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    cursor: default;
+  }
+  #alamo {
+    position: absolute;
+    width: 200px;
+    top: 50%;
+    left: -400px; /* hidden offscreen */
+    transform: translateY(-50%);
+    transition: none;
+  }
+  .shake {
+    animation: shake 0.6s;
+  }
+  @keyframes shake {
+    0% { transform: translate(-10px, -10px) rotate(-10deg); }
+    25% { transform: translate(10px, 10px) rotate(10deg); }
+    50% { transform: translate(-10px, 10px) rotate(-10deg); }
+    75% { transform: translate(10px, -10px) rotate(10deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+  }
+</style>
 </head>
 <body>
-    <h1>Welcome to DrChicken Messanger!</h1>
-    <script src="js/chat.js"></script>
+
+<img src="Alamo.png" id="alamo" alt="Alamo">
+<audio id="scream" src="All alamos _jonmud _jon mud(MP3).mp3"></audio>
+
+<script>
+const alamo = document.getElementById('alamo');
+const screamAudio = document.getElementById('scream');
+
+// Function to pop the PNG and play sound
+function popAlamo() {
+  alamo.style.left = (window.innerWidth/2 - 100) + 'px'; // center
+  alamo.classList.add('shake');
+
+  screamAudio.currentTime = 0;
+  screamAudio.play();
+
+  setTimeout(() => {
+    alamo.classList.remove('shake');
+    alamo.style.left = '-400px'; // hide
+  }, 800);
+}
+
+// Automatically pop every 10 seconds
+setInterval(popAlamo, 10000);
+
+// Optional: first pop after 3 seconds
+setTimeout(popAlamo, 3000);
+</script>
+
 </body>
 </html>
