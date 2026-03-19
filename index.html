@@ -12,13 +12,14 @@
     height: 100vh;
     width: 100vw;
     position: relative;
-    cursor: default;
+    cursor: pointer; /* shows you can click */
   }
   #alamo {
     position: absolute;
-    width: 200px;
+    width: 60vw; /* bigger PNG */
+    max-width: 900px;
     top: 50%;
-    left: -400px; /* hidden offscreen */
+    left: -1000px; /* hidden offscreen */
     transform: translateY(-50%);
     transition: none;
   }
@@ -43,25 +44,24 @@
 const alamo = document.getElementById('alamo');
 const screamAudio = document.getElementById('scream');
 
-// Function to pop the PNG and play sound
 function popAlamo() {
-  alamo.style.left = (window.innerWidth/2 - 100) + 'px'; // center
+  // Center the PNG
+  alamo.style.left = (window.innerWidth/2 - alamo.offsetWidth/2) + 'px';
   alamo.classList.add('shake');
 
+  // Play your MP3
   screamAudio.currentTime = 0;
   screamAudio.play();
 
+  // Hide after 0.8s
   setTimeout(() => {
     alamo.classList.remove('shake');
-    alamo.style.left = '-400px'; // hide
+    alamo.style.left = '-1000px';
   }, 800);
 }
 
-// Automatically pop every 10 seconds
-setInterval(popAlamo, 10000);
-
-// Optional: first pop after 3 seconds
-setTimeout(popAlamo, 3000);
+// Pop when user clicks anywhere
+document.body.addEventListener('click', popAlamo);
 </script>
 
 </body>
